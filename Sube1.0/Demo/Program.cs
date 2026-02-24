@@ -1,10 +1,15 @@
-﻿namespace Demo
+﻿using Entidades;
+
+namespace Demo
 {
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("\n_____________ Sube ________");
+
+            Sube.valorPasaje = 2000;
+            Sube.montoMinimo = 5000;
         }
     }
 }

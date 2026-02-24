@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    internal class MedioDePago
+    public enum MedioDePago
     {
+        Efectivo,
+        TarjetaDeCredito,
+        TarjetaDeDebito,
     }
 }
