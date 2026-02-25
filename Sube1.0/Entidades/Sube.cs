@@ -9,6 +9,7 @@ namespace Entidades
     public class Sube
     {
         private static readonly List<Pasajero> pasajeros = new();
+        private static readonly List<Cuenta> cuentas = new(); // consultar si esta bien asi
         private static decimal ValorPasaje;
         private static decimal MontoMinimo;
 
@@ -33,7 +34,7 @@ namespace Entidades
             }
         }
 
-        public static void AddPàsajero(Pasajero pasajero)
+        public static void AddPasajero(Pasajero pasajero)
         {
             pasajeros.Add(pasajero);
         }
@@ -41,6 +42,11 @@ namespace Entidades
         public static List<Pasajero> GetPasajeros()
         {
             return pasajeros;
+        }
+
+        public static List<Cuenta> GetCuentas() // no estaba lo agregue
+        {
+            return cuentas;
         }
     }
 }

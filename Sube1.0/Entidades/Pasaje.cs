@@ -8,58 +8,72 @@ namespace Entidades
 {
     public class Pasaje : Operacion
     {
+        // Campos
+        private byte _linea;
+        private short _unidad;
+        private MedioDePago _medioDePago;
 
-        private byte linea;
-        private Int16 unidad;
-     
-        public MedioDePago MedioDePago { get; }
-
+        // Propiedades
         public byte Linea
         {
-            get => linea;
+            get => _linea;
             set
             {
-                if (value < 0 )
-                    throw new Exception("La linea no puede ser menor a 0");
-                linea = value;
+                if (value <= 0)
+                    throw new ArgumentException("Línea inválida, debe ser mayor a cero.");
+                _linea = value;
             }
         }
 
-        public Int16 Unidad
+        public short Unidad
         {
-            get => unidad;
+            get => _unidad;
             set
             {
-                if (value < 0)
-                    throw new Exception("La unidad no puede ser menor a 0");
-                unidad = value;
+                if (value <= 0)
+                    throw new ArgumentException("Unidad inválida, debe ser mayor a cero.");
+                _unidad = value;
             }
         }
+        // Propiedad de solo lectura para el medio de pago
+        public MedioDePago MedioDePago
+        {
+            get => _medioDePago;
+            private set => _medioDePago = value;
+        }
 
+        // Constructores
+        public Pasaje(Cuenta cuenta, DateTime fecha, decimal monto, MedioDePago medioDePago) : base(cuenta, fecha, monto)
+        {
+            MedioDePago = medioDePago;
+            Linea = 1;
+            Unidad = 1;
+        }
+
+        public Pasaje(Cuenta cuenta, DateTime fecha, decimal monto, MedioDePago medioDePago, byte linea) : this(cuenta, fecha, monto, medioDePago)
+        {
+            Linea = linea;
+
+        }
+
+        public Pasaje(Cuenta cuenta, DateTime fecha, decimal monto, MedioDePago medioDePago, byte linea, short unidad) : this(cuenta, fecha, monto, medioDePago, linea)
+        {
+            Unidad = unidad;
+
+        }
+
+        // Siempre devuelve el monto negativo
         public override decimal Monto
         {
             get => -Math.Abs(base.Monto);
-            protected set => base.Monto = Math.Abs(value);
-            
-        }
-
-        public Pasaje(decimal monto, DateTime fecha, Cuenta cuenta, MedioDePago mediopago) : base(monto, fecha, cuenta)
-        {
-            MedioDePago = mediopago;
-
-        }
-        public Pasaje(decimal monto, DateTime fecha, Cuenta cuenta, MedioDePago mediopago, byte linea ) : base(monto, fecha, cuenta)
-        {
-            Linea = linea;
-        }
-        public Pasaje(decimal monto, DateTime fecha, Cuenta cuenta, MedioDePago mediopago, byte linea, Int16 unidad) : base(monto, fecha, cuenta)
-        {
-            Unidad = unidad;
+            set => base.Monto = Math.Abs(value);
         }
 
         public override string ToString()
         {
-            return $"Pasaje: - {base.ToString()} - Linea: {Linea} - Unidad: {Unidad}";
+            return $"Pasaje - Fecha: {Fecha} - Monto: {Monto} - Línea: {Linea} - Unidad: {Unidad}";
         }
     }
+
+    
 }

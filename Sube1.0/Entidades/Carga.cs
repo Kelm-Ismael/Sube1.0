@@ -15,7 +15,7 @@ namespace Entidades
         {
 
             MedioDePago = medioDePago;
-            //cuenta.AddOperacion(this);
+           
         }
 
         public override string ToString()

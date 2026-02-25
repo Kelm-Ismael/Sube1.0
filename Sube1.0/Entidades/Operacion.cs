@@ -2,42 +2,57 @@
 {
     public abstract class Operacion
     {
-        private decimal monto;
-        private DateTime fecha;
 
-        public Cuenta Cuenta { get; }
+        public decimal _monto;
+
+        public DateTime Fecha;
+        private Cuenta Cuenta { get; set; }
 
         public virtual decimal Monto
         {
-            get => monto;
+            get => _monto;
             set
             {
-                if (value < 0)
-                    throw new Exception("El monto es Invàlido no puede ser menor a 0");
+                if (value <= 0)
+                    throw new Exception($"Monto inválido: {value}");
 
-                monto = value;
+                _monto = value;
             }
         }
-        public DateTime Fecha
+
+        public DateTime fecha
         {
-            get => fecha;
+            get => Fecha;
+
+        }
+
+        public Cuenta cuenta
+        {
+            get => Cuenta;
             set
             {
-                if (value > DateTime.Now)
-                    throw new Exception("La fecha no puede ser mayor a la fecha actual");
-                fecha = value;
+                if (value == null)
+                    throw new Exception("Cuenta inválida.");
+                Cuenta = value;
             }
+
         }
-        public Operacion(decimal monto, DateTime fecha, Cuenta cuenta)
+
+
+        protected Operacion(Cuenta cuenta, DateTime fecha, decimal monto)
         {
-            Monto = monto;
-            Fecha = fecha;
             Cuenta = cuenta;
+            Fecha = fecha;
+            Monto = monto;
         }
+
+
+
         public override string ToString()
         {
             return $"Fecha: {Fecha} - Monto: {Monto}";
         }
-
     }
+
+
 }
